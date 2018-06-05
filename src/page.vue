@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-const TAG = 'v-page';
+const VUE_ANIMATE_PAGE_TAG = 'vue-animate-page';
 // 默认的切换效果
 const DEFAULT_EFFECT='fade';
 // 动画切换配置
@@ -21,7 +21,7 @@ const transitionConfigs = {
   },
 };
 export default {
-  name: TAG,
+  name: VUE_ANIMATE_PAGE_TAG,
   props: {
     initZIndex: Number, // 自定义Zindex
     effect: { // 切换效果，目前支持 slid,fade 两种
@@ -40,7 +40,7 @@ export default {
     return {
       css: [],
       effectName,
-      transitionConfig ,
+      transitionConfig,
       zIndex: this.initZIndex || this.makeZIndex(),
     }; 
   },
@@ -61,7 +61,7 @@ export default {
     },
     findParent() { //获取父v-page
       for (let t = this.$parent; t; t = t.$parent) {
-        if (t.$vnode && t.$vnode.componentOptions && t.$vnode.componentOptions.tag === TAG) {
+        if (t.$vnode && t.$vnode.componentOptions && t.$vnode.componentOptions.tag === VUE_ANIMATE_PAGE_TAG) {
           return t;
         }
       }
