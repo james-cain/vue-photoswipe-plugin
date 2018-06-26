@@ -3,30 +3,23 @@ const webpack = require('webpack');
 const webpackConfig = require('webpack-chain');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
 const styleLoader = process.env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'vue-style-loader';
 const baseConfig = new webpackConfig();
 
 const resolve = (dir) => join(__dirname, '..', dir);
-console.log(resolve('./dist'))
-console.log(resolve('./src'))
-baseConfig
-    .entry('index')
-        .add('./src/index.js')
-        // .end()
-baseConfig
-    .output
-        .path(resolve('./vue-animate-page/dist'))
-        .publicPath('/dist/')
-        .filename('vue-animate-page.min.js')
-        .library('animatePage')
-        .libraryTarget('umd');
 
 baseConfig
     .resolve
-        .alias.set('vue$', 'vue/dist/vue.esm.js');
+        .extensions
+            .add('.js')
+            .add('.vue')
+            .end()
+        .alias
+            .set('vue$', 'vue/dist/vue.esm.js')
+            .set('vue-loader/node_modules/vue-hot-reload-api/dis', 'vue-hot-reload-api');
 
 baseConfig.module.rule('lint')
     .test(/\.(js|vue)$/)
@@ -52,6 +45,7 @@ baseConfig.module.rule('vue')
     .test(/\.vue$/)
     .include
         .add(/src/)
+        .add(/demo/)
         .end()
     .exclude
         .add(/node_modules/)
@@ -127,11 +121,23 @@ baseConfig.externals({
     }
 });
 
+baseConfig.plugin('vue-loader').use(VueLoaderPlugin);
+
 baseConfig.devtool('#source-map');
 
 baseConfig.mode(process.env.NODE_ENV)
 
 if (process.env.NODE_ENV === 'production') {
+    baseConfig
+        .entry('index')
+            .add('./src/index.js')
+    baseConfig
+        .output
+            .path(resolve('./vue-animate-page/dist'))
+            .publicPath('/dist/')
+            .filename('vue-animate-page.min.js')
+            .library('animatePage')
+            .libraryTarget('umd');
     baseConfig.plugin('define').use(webpack.DefinePlugin, [{
         'process.env': {
             NODE_ENV: 'production'
@@ -141,21 +147,21 @@ if (process.env.NODE_ENV === 'production') {
         filename: 'vue-animate-page.min.css'
     }])
     baseConfig.plugin('optimize-css').use(OptimizeCSSAssetsPlugin);
-    // baseConfig.plugin('paralle-uglify-js').use(ParallelUglifyPlugin, [{
-    //     cacheDir: '.cache/',
-    //     uglifyJS: {
-    //         output: {
-    //             comments: false,
-    //             beautify: false
-    //         },
-    //         compress: {
-    //             warnings: false,
-    //             drop_console: true,
-    //             collapse_vars: true
-    //         }
-    //     }
-    // }]);
-    baseConfig.plugin('vue-loader').use(VueLoaderPlugin);
+} else {
+    baseConfig
+        .entry('app')
+            .add('./demo/index.js');
+    baseConfig
+        .output
+            .path(resolve('/dist/'))
+            .filename('js/[name].js')
+            .publicPath('/');
+    baseConfig.plugin('html').use(HtmlWebpackPlugin, [{
+        filename: 'index.html',
+        template: 'index.html',
+        inject: true,
+        chunks: ['app']
+    }])
 }
 
 module.exports = baseConfig.toConfig();
