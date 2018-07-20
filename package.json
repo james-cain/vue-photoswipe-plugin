@@ -1,63 +1,58 @@
 {
-  "name": "vue-animate-page",
+  "name": "vue-photoswipe-plugin",
   "version": "1.0.0",
-  "description": "A vue-router-change component",
-  "main": "dist/vue-animate-page.min.js",
+  "description": "A vue plugin using photoswipe",
+  "main": "dist/vue-photoswipe.min.js",
   "dependencies": {
-    "vue": "^2.5.16",
-    "vue-router": "^3.0.1"
+    "photoswipe": "^4.1.2",
+    "vue": "^2.5.16"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-runtime": "^6.26.0",
-    "cross-env": "^5.1.6",
-    "css-loader": "^0.28.11",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-import-resolver-webpack": "^0.10.0",
-    "eslint-loader": "^2.0.0",
-    "eslint-plugin-html": "^4.0.3",
-    "eslint-plugin-import": "^2.12.0",
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.9.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "cross-env": "^5.1.3",
+    "css-loader": "^0.23.1",
+    "eslint": "^4.0.0",
+    "eslint-loader": "^1.7.1",
     "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^3.1.0",
+    "inject-loader": "^3.0.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
-    "mini-css-extract-plugin": "^0.4.0",
-    "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "mini-css-extract-plugin": "^0.2.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "style-loader": "^0.14.1",
     "url-loader": "^1.0.1",
-    "vue-hot-reload-api": "^2.3.0",
-    "vue-loader": "^15.2.4",
-    "vue-style-loader": "^4.1.0",
+    "vue-loader": "^14.1.1",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.10.2",
-    "webpack-chain": "^4.8.0",
-    "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4",
-    "webpack-node-externals": "^1.7.2",
-    "webpack-parallel-uglify-plugin": "^1.1.0"
+    "webpack": "^4.16.1",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^2.0.8",
+    "webpack-dev-server": "^3.0.0",
+    "webpack-serve": "^0.1.4"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development ./node_modules/.bin/webpack-dev-server --hot --config webpack.js",
-    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack --progress --colors --config webpack.js"
+    "start": "cross-env NODE_ENV=development ./node_modules/.bin/webpack-dev-server --open --hot --content-base='./demo/'",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
+    "build": "./node_modules/.bin/webpack --mode production",
+    "build:report": "cross-env npm_config_report=true ./node_modules/.bin/webpack --mode production"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/james-cain/vue-animate-page.git"
+    "url": "git+https://github.com/james-cain/vue-photoswipe-plugin.git"
   },
   "keywords": [
     "vue",
-    "vue-router"
+    "photoswipe"
   ],
   "author": "james-cain",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/james-cain/vue-animate-page/issues"
+    "url": "https://github.com/james-cain/vue-photoswipe-plugin/issues"
   },
-  "homepage": "https://github.com/james-cain/vue-animate-page#readme"
+  "homepage": "https://github.com/james-cain/vue-photoswipe-plugin#readme"
 }

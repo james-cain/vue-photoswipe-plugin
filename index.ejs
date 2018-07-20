@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue-show</title>
+    <style>
+        img {
+          width: 100px;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <div>
+              <img
+                v-for="(fid, index) in fids"
+                :id="fid"
+                :src="'http://eim2.szcomtop.com:6888/api/fs/view/' + fid"
+                @click="openPhotoSwipe(index, fids)">
+            </div>
+            <div>点击图片查看大图</div>
+        </div>
+    </div>
+    <script>
+        var url = 'http://eim2.szcomtop.com:6888'
+
+        var main = {
+          data() {
+            return {
+              fids: ['ZWltMWdhL00wMC8wMC82MC9DZ29QY1ZzcHp1Q0FURXZ5QUFVYnBfZmdhN2szODg3OTQ1', 'ZWltMWdhL00wMC8wMC82MC9DZ29QY1ZzcHp1R0Fac0ttQUFYbldfSFBaSTAxMjY0MDIy', 'ZWltMWdhL00wMC8wMC82MC9DZ29QY1ZzcHp1R0FDQlU0QUFSZi1yQVVhZmM0NzA3NjIx'],
+            };      
+          },
+          methods: {
+            openPhotoSwipe(index, fids) {
+              var list = [];
+              var clientWidth = document.documentElement.clientWidth;
+              fids.forEach(function (fid) {
+                // 计算图片的长宽比，以免图片放大后变形
+                var w = document.querySelector('img#' + fid).naturalWidth;
+                var h = document.querySelector('img#' + fid).naturalHeight;
+                var rate = w / h;
+                var wt = clientWidth - 10;
+                var wh = wt / rate;
+                list.push({
+                  src: url + '/api/fs/view/' + fid,
+                  w: wt || clientWidth,
+                  h: wh || clientWidth,
+                });
+              });
+              this.photoSwipeOpen(index, list);
+            },
+          },
+        };
+        var Show = Vue.extend(main);
+        new Show().$mount('#app');
+    </script>
+</body>
+</html>
