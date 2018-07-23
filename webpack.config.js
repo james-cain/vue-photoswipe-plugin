@@ -46,6 +46,8 @@ const config = {
   output: {
     path: buildingForLocal() ? path.resolve(__dirname) : resolve('dist'),
     publicPath: setPublicPath(),
+    library: 'vuePhotoswipe',
+    libraryTarget: 'umd',
     filename: 'js/vue-photoswipe.min.js' 
   },
   resolveLoader: {
