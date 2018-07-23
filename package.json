@@ -1,6 +1,6 @@
 {
   "name": "vue-photoswipe-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A vue plugin using photoswipe",
   "main": "dist/vue-photoswipe.min.js",
   "dependencies": {

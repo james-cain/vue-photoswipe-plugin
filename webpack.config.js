@@ -119,13 +119,21 @@ const config = {
           }]
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        query: {
-          name: '[name].[ext]?[hash]',
-          useRelativePath: buildingForLocal()
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: 'img/[name].[ext]?[hash:7]'
         }
-      }
+      },
+      // {
+      //   test: /\.(png|jpg|gif|svg)$/,
+      //   loader: 'file-loader',
+      //   query: {
+      //     name: '[name].[ext]?[hash]',
+      //     useRelativePath: !buildingForLocal()
+      //   }
+      // }
     ]
   }
 };
