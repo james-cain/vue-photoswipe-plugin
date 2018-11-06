@@ -19,14 +19,14 @@
               <img
                 v-for="(fid, index) in fids"
                 :id="fid"
-                :src="'http://eim2.szcomtop.com:6888/api/fs/view/' + fid"
+                :src="'/api/fs/view/' + fid"
                 @click="openPhotoSwipe(index, fids)">
             </div>
             <div>点击图片查看大图</div>
         </div>
     </div>
     <script>
-        var url = 'http://eim2.szcomtop.com:6888'
+        var url = ''
 
         var main = {
           data() {
